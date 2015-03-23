@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Form</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+ 
+
+<style type="text/css">
+	.TFtable{
+		width:100%; 
+		border-collapse:collapse;
+                margin-left: 400px 
+	}
+	.TFtable td{ 
+		padding:10px; border:#000000 1px solid;
+	}
+	/* provide some minimal visual accomodation for IE8 and below */
+	.TFtable tr{
+		background: #000fff;
+	}
+	/*  tek sayı */
+	.TFtable tr:nth-child(odd){ 
+		background: #ffffff;
+	}
+	/* çift sayı*/
+	.TFtable tr:nth-child(even){
+		background: #d7d7d7;
+	}
+
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Form</h2>
+  <form id="signInForm" class="form-horizontal"
+    data-fv-framework="bootstrap"
+    data-fv-icon-valid="glyphicon glyphicon-ok"
+    data-fv-icon-invalid="glyphicon glyphicon-remove"
+    data-fv-icon-validating="glyphicon glyphicon-refresh">
+
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Firstname</label>
+        <div class="col-xs-5">
+            <input id="first" type="text" class="form-control" name="firstname" placeholder="Enter firstname"
+                required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Lastname</label>
+        <div class="col-xs-5">
+            <input id="last" type="text" class="form-control" name="lastname" placeholder="Enter lastname"
+                required
+                data-fv-notempty-message="The password is required" >
+        </div>
+    </div>
+<div class="form-group" id="btn">        
+      <div class="col-sm-offset-3 col-xs-5 ">
+        
+     <label class="radio-inline">
+      <input type="radio" id="bir" name="cinsiyet" value="Female" checked="checked">Female
+    </label>
+    <label class="radio-inline">
+      <input type="radio" id="iki"name="cinsiyet" value="Male">Male
+    </label>
+    
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-6 col-xs-offset-3">
+            <button type="button"  class="btn btn-default" onclick="save()">Save</button>
+        </div>
+    </div>
+
+
+
+</form>
+</div>
+<div class="TFtable">
+<div id = "tab">
+        <table id = "list" width="460">
+            <th>
+                <tr>
+                    <td>Firstname</td>
+                    <td>Lastname</td>
+                    <td>Female/Male</td>
+                </tr>
+            </th>
+
+            <tbody>
+
+            </tbody>
+        </table>
+</div>
+</div>
+
+<script>
+function save(){
+
+ var rows="";
+ var x=document.getElementById("first").value;
+ var y=document.getElementById("last").value;
+ var z = $('#btn input:radio:checked').val()
+
+if((x == "") || (y == ""))
+{
+    alert("Please, fill in the blanks!")
+}else {
+        
+        rows = "<tr><td>"+ x+ "</td><td>"+ y+"</td><td>"+ z+ "</td></tr>";
+        $("#list tr:last").after(rows);
+
+
+  }  
+
+   $("#list tr").click(function() {
+      
+      var self   = $(this),
+      index  = self.index();
+ 
+      $(this).css('backgroundColor','hsl(0,100%,50%');
+
+      var d = 1000;
+
+  for(var i=50; i<=100; i=i+0.1){
+    d  += 10;
+    (function(ii,dd){
+        setTimeout(function(){
+            $("tr" ).eq(index).css('backgroundColor','hsl(0,100%,'+ii+'%)'); 
+        }, dd);    
+    })(i,d);
+}
+
+ 
+    var tableData = $(this).children("td").map(function() {
+        return $(this).text();
+     }).get();
+
+        $('#first').val(tableData[0]);
+        $('#last').val(tableData[1]);
+       // $('input[name=cinsiyet]:checked', '#signInForm').val());
+ 
+
+ });
+
+}
+
+</script>
+
+</body>
+</html>
